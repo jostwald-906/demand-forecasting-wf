@@ -1,0 +1,81 @@
+# Progress Tracker
+
+## Completed (P0)
+- [x] Project setup (Dockerfile, docker-compose, devcontainer)
+- [x] React + TypeScript + Vite scaffolding
+- [x] Tailwind CSS configuration
+- [x] Development container running
+- [x] Foundation: Types and interfaces (src/types/)
+- [x] Foundation: Mock data + scenario engine (src/data/)
+- [x] Foundation: App state context + layout shell + shared UI
+- [x] A2: NIIN type-ahead selector
+- [x] A3: Global filters row
+- [x] B1: NIIN metadata card
+- [x] B2: Operational tiles
+- [x] B3: Risk tiles
+- [x] C1: Primary time-series chart
+- [x] C2: Chart controls (granularity, overlay)
+- [x] D1: Time-phased inventory bars
+- [x] D2: Shortfall/breach table
+- [x] E1: Recommended Actions table
+- [x] E2: Action detail flyout
+- [x] F1: Scenario builder drawer
+- [x] F2: Drawer outputs
+- [x] H1: Loading and no-data states
+
+## Completed (Enhancements)
+- [x] Fix 1: NIIN search shows dropdown on click with all 20 NIINs, search by platform/commodity
+- [x] Fix 2: Dark mode with class-based toggle, localStorage persistence, all components styled
+- [x] Fix 3: Units/$ toggle converts actual data values (ForecastChart, InventoryBars, BreachTable)
+- [x] Fix 4: Scenario overlay auto-enables on Apply, distinct red dashed line, amplified effects
+- [x] Expanded mock data: 20 NIINs with forecast configs, inventory configs, recommendations
+
+## Completed (P1)
+- [x] H3: Consistent units/rounding across RecommendedActions and ActionDetailFlyout
+- [x] H2: Error state pattern with simulated error toggle and retry buttons
+- [x] A1: Tab navigation entry with 5 placeholder tabs
+- [x] A4: Scenario presets dropdown (Baseline, High Demand, Supply Disruption, Worst Case, Best Case)
+- [x] C3: Annotation markers on forecast chart (contract, engineering, retirement, deployment events)
+- [x] E3: Approve/Export controls on recommendations table with CSV download
+- [x] D3: Rebalance candidates quick view in action detail flyout
+- [x] G1: Forecast driver decomposition panel (5 drivers with toggle and contribution bars)
+- [x] G2: Forecast quality panel (MAPE, Bias, Volatility Index, Forecast vs Actual with color coding)
+- [x] E4: Cost vs Service tradeoff widget (efficient frontier chart with budget slider)
+
+## Completed (P2 — Cutting-Edge Features)
+
+### Tier 1: High Impact, Differentiating
+- [x] 1. Readiness Impact Translator — 4 tiles (Aircraft at Risk, MC Rate Impact, Sorties at Risk 30d, NMCS Hours). Updates with scenarios. Severity badge (Mission Risk/Watch/Nominal).
+- [x] 2. Multi-NIIN Portfolio Risk Heatmap — Grid with 20 NIINs × 12 months, color-coded stockout probability. Summary bar. Click cell to navigate. Wired to Analytics tab.
+- [x] 3. AI Copilot Panel — Floating chat panel with suggested prompts, NL responses, clickable scenario chips that apply directly, inline sparklines. Toggled from header Bot icon.
+- [x] 4. Action Orchestration Timeline — Gantt chart view in Recommended Actions (Table/Timeline toggle). Shows action bars with colors, today-line, dependency arrows, critical path toggle.
+
+### Tier 2: Smart Additions
+- [x] 5. Demand Signal Anomaly Detection Feed — 3-5 anomaly cards per NIIN with severity, sparkline, description, Investigate button. Between forecast chart and supply sufficiency.
+- [x] 6. Monte Carlo Simulation View — Toggle on chart controls: 50 simulation paths with P10/P50/P90 percentile bands. Breach count annotation. New monteCarloEngine.ts.
+- [x] 7. Forecast Model Ensemble Indicator — Chip on forecast chart header showing ensemble (e.g., "XGBoost + ARIMA 40/60"). Expand to see 4 models with MAPE, sparklines, weight distribution.
+- [x] 8. Supplier Risk Intelligence Card — Collapsible card with composite risk score, OTD%, Capacity Util, Financial Health, Geopolitical Risk, DMSMS Risk, 12-month OTD sparkline. Single Source badge.
+
+### Tier 3: Future Vision
+- [x] 9. Causal AI Explainability Graph — Interactive DAG with upstream/intermediate/target nodes. Edge thickness = influence strength. Click to explore connections. Positive/negative causal relationships.
+- [x] 10. Scenario Comparison Mode — Modal comparing 5 named scenarios side-by-side. Delta arrows for stockout prob, service level, cost. Winner badge. Synthesis summary.
+- [x] 11. Digital Twin Simulation Sandbox — Full network graph (suppliers/DLA/depots/bases). Event injection panel (5 presets). Time slider animation with disruption propagation. Readiness dashboard. Wired to Logistics Planning tab.
+
+## Completed (Realism & Integration Fixes)
+- [x] Filters functional: GlobalFilters now drive NiinSelector dropdown and Portfolio Heatmap grid
+- [x] NiinSelector respects platform/commodity/supplier/echelon filters
+- [x] PortfolioHeatmap filters NIINs by active filters, dynamic summary bar
+- [x] PortfolioHeatmap: monotonically increasing risk (removed oscillating seasonal noise)
+- [x] Digital Twin: complete rewrite with inventory physics — weekly production, consumption, flow transfers, proper depletion
+- [x] Digital Twin: added status log panel showing what's happening in plain text
+- [x] AnomalyFeed: anomalies derived from actual forecast/risk/operational data (spikes, trends, service gaps, burn rate)
+- [x] AnomalyFeed: Investigate buttons scroll to forecast chart section
+- [x] Monte Carlo: fixed inventory tracking — uses actual on-hand, safety stock, quarterly receipts instead of arbitrary values
+- [x] ReadinessImpact: replaced arbitrary multipliers with data-driven formulas (backorders, criticality, lead time)
+- [x] ForecastDrivers: contributions now sum to 100% (normalized)
+- [x] ForecastQuality: MAPE/Bias/Volatility derived from actual historical forecast data
+- [x] SupplierRiskCard: metrics now tied to NIIN lead time, unit cost, single source status, and criticality
+- [x] CausalGraph: fixed Supply Pipeline → Demand edge direction (positive, not negative)
+- [x] ActionTimeline: durations derived from NIIN lead time instead of fixed values
+
+## All P0 + P1 + P2 + Realism fixes complete
