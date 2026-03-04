@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { Layers, ChevronRight } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Layers, ChevronRight, ChevronUp, ChevronDown, AlertTriangle } from 'lucide-react';
 import { useAppState, useAppDispatch } from '@/context/AppContext';
 import { filterNiinCatalog, getOperationalData, getRiskData, getAggregatedForecast } from '@/data';
 import SectionWrapper from './SectionWrapper';
@@ -7,9 +7,37 @@ import Tile from './Tile';
 import ForecastChart from './ForecastChart';
 import type { NiinRecord, OperationalData } from '@/types';
 
+type SortKey = 'niin' | 'nomenclature' | 'program' | 'micap' | 'platforms' | 'demand12mo' | 'stockoutRisk';
+type SortDir = 'asc' | 'desc';
+
+interface RowData {
+  niin: NiinRecord;
+  demand12mo: number;
+  stockoutProb: number;
+}
+
+function sortRows(rows: RowData[], key: SortKey, dir: SortDir): RowData[] {
+  const sorted = [...rows].sort((a, b) => {
+    let cmp = 0;
+    switch (key) {
+      case 'niin': cmp = a.niin.niin.localeCompare(b.niin.niin); break;
+      case 'nomenclature': cmp = a.niin.nomenclature.localeCompare(b.niin.nomenclature); break;
+      case 'program': cmp = a.niin.demandProgram.localeCompare(b.niin.demandProgram); break;
+      case 'micap': cmp = (a.niin.criticalityFlag ? 1 : 0) - (b.niin.criticalityFlag ? 1 : 0); break;
+      case 'platforms': cmp = a.niin.platforms.join(', ').localeCompare(b.niin.platforms.join(', ')); break;
+      case 'demand12mo': cmp = a.demand12mo - b.demand12mo; break;
+      case 'stockoutRisk': cmp = a.stockoutProb - b.stockoutProb; break;
+    }
+    return dir === 'asc' ? cmp : -cmp;
+  });
+  return sorted;
+}
+
 export default function AggregatedView() {
   const { filters } = useAppState();
   const dispatch = useAppDispatch();
+  const [sortKey, setSortKey] = useState<SortKey>('stockoutRisk');
+  const [sortDir, setSortDir] = useState<SortDir>('desc');
 
   const filteredNiins = useMemo(() => filterNiinCatalog({
     platform: filters.platform,
@@ -61,14 +89,23 @@ export default function AggregatedView() {
     return labels;
   }, [filters]);
 
-  // Per-NIIN table rows with demand data
   const niinRows = useMemo(() => {
-    return filteredNiins.map((niin) => {
+    const rows: RowData[] = filteredNiins.map((niin) => {
       const ops = getOperationalData(niin.id);
       const risk = getRiskData(niin.id);
-      return { niin, ops, risk };
+      return { niin, demand12mo: ops?.demand12mo ?? 0, stockoutProb: risk?.stockoutProb90d ?? 0 };
     });
-  }, [filteredNiins]);
+    return sortRows(rows, sortKey, sortDir);
+  }, [filteredNiins, sortKey, sortDir]);
+
+  const handleSort = (key: SortKey) => {
+    if (sortKey === key) {
+      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortKey(key);
+      setSortDir(key === 'demand12mo' || key === 'stockoutRisk' || key === 'micap' ? 'desc' : 'asc');
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -142,22 +179,23 @@ export default function AggregatedView() {
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide border-b border-gray-200 dark:border-gray-700">
-                <th className="pb-2 pr-3">NIIN</th>
-                <th className="pb-2 pr-3">Nomenclature</th>
-                <th className="pb-2 pr-3">Program</th>
-                <th className="pb-2 pr-3">Platform(s)</th>
-                <th className="pb-2 pr-3 text-right">Demand (12mo)</th>
-                <th className="pb-2 pr-3 text-right">Stockout Risk</th>
+                <SortableHeader label="NIIN" sortKey="niin" currentKey={sortKey} currentDir={sortDir} onSort={handleSort} />
+                <SortableHeader label="Nomenclature" sortKey="nomenclature" currentKey={sortKey} currentDir={sortDir} onSort={handleSort} />
+                <SortableHeader label="Program" sortKey="program" currentKey={sortKey} currentDir={sortDir} onSort={handleSort} />
+                <SortableHeader label="MICAP" sortKey="micap" currentKey={sortKey} currentDir={sortDir} onSort={handleSort} />
+                <SortableHeader label="Platform(s)" sortKey="platforms" currentKey={sortKey} currentDir={sortDir} onSort={handleSort} />
+                <SortableHeader label="Demand (12mo)" sortKey="demand12mo" currentKey={sortKey} currentDir={sortDir} onSort={handleSort} align="right" />
+                <SortableHeader label="Stockout Risk" sortKey="stockoutRisk" currentKey={sortKey} currentDir={sortDir} onSort={handleSort} align="right" />
                 <th className="pb-2 w-8"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-              {niinRows.map(({ niin, ops, risk }) => (
+              {niinRows.map(({ niin, demand12mo, stockoutProb }) => (
                 <NiinRow
                   key={niin.id}
                   niin={niin}
-                  demand12mo={ops?.demand12mo ?? 0}
-                  stockoutProb={risk?.stockoutProb90d ?? 0}
+                  demand12mo={demand12mo}
+                  stockoutProb={stockoutProb}
                   onSelect={() => dispatch({ type: 'SELECT_NIIN', niinId: niin.id })}
                 />
               ))}
@@ -166,6 +204,44 @@ export default function AggregatedView() {
         </div>
       </SectionWrapper>
     </div>
+  );
+}
+
+function SortableHeader({
+  label,
+  sortKey: key,
+  currentKey,
+  currentDir,
+  onSort,
+  align = 'left',
+}: {
+  label: string;
+  sortKey: SortKey;
+  currentKey: SortKey;
+  currentDir: SortDir;
+  onSort: (key: SortKey) => void;
+  align?: 'left' | 'right';
+}) {
+  const isActive = currentKey === key;
+  return (
+    <th
+      className={`pb-2 pr-3 cursor-pointer select-none hover:text-gray-700 dark:hover:text-gray-200 transition-colors ${align === 'right' ? 'text-right' : ''}`}
+      onClick={() => onSort(key)}
+    >
+      <span className="inline-flex items-center gap-1">
+        {align === 'right' && isActive && (
+          currentDir === 'asc'
+            ? <ChevronUp className="w-3 h-3" />
+            : <ChevronDown className="w-3 h-3" />
+        )}
+        {label}
+        {align !== 'right' && isActive && (
+          currentDir === 'asc'
+            ? <ChevronUp className="w-3 h-3" />
+            : <ChevronDown className="w-3 h-3" />
+        )}
+      </span>
+    </th>
   );
 }
 
@@ -202,6 +278,16 @@ function NiinRow({
         }`}>
           {niin.demandProgram}
         </span>
+      </td>
+      <td className="py-2 pr-3">
+        {niin.criticalityFlag ? (
+          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300">
+            <AlertTriangle className="w-3 h-3" />
+            MICAP
+          </span>
+        ) : (
+          <span className="text-xs text-gray-400 dark:text-gray-500">&mdash;</span>
+        )}
       </td>
       <td className="py-2 pr-3 text-xs text-gray-500 dark:text-gray-400">{niin.platforms.join(', ')}</td>
       <td className="py-2 pr-3 text-right font-medium text-gray-900 dark:text-gray-100">{demand12mo.toLocaleString()}</td>
