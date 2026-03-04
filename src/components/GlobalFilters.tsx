@@ -5,6 +5,7 @@ import {
   commodityGroupOptions,
   supplierOptions,
   echelonOptions,
+  demandProgramOptions,
   horizonOptions,
 } from '@/data';
 import type { FilterState, Horizon } from '@/types';
@@ -51,11 +52,18 @@ export default function GlobalFilters() {
     filters.platform !== null ||
     filters.commodityGroup !== null ||
     filters.supplier !== null ||
-    filters.echelon !== null;
+    filters.echelon !== null ||
+    filters.demandProgram !== null;
 
   return (
     <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-3">
       <div className="flex items-end gap-4 flex-wrap">
+        <FilterDropdown
+          label="Demand Program"
+          value={filters.demandProgram}
+          options={demandProgramOptions}
+          onChange={(v) => setFilter('demandProgram', v)}
+        />
         <FilterDropdown
           label="Platform"
           value={filters.platform}

@@ -40,7 +40,8 @@ export default function PortfolioHeatmap() {
     commodityGroup: filters.commodityGroup,
     supplier: filters.supplier,
     echelon: filters.echelon,
-  }), [filters.platform, filters.commodityGroup, filters.supplier, filters.echelon]);
+    demandProgram: filters.demandProgram,
+  }), [filters.platform, filters.commodityGroup, filters.supplier, filters.echelon, filters.demandProgram]);
 
   const heatmapData = useMemo(() => {
     return filteredNiins.map((niin) => ({

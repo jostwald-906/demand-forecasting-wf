@@ -108,3 +108,37 @@ export function sliceForecastByHorizon(
   const forecastMonths = getHorizonMonths(horizon);
   return data.slice(0, TODAY_INDEX + forecastMonths);
 }
+
+export function getAggregatedForecast(niinIds: string[]): ForecastPoint[] {
+  if (niinIds.length === 0) return [];
+  const allForecasts = niinIds.map((id) => getBaselineForecast(id)).filter((f) => f.length > 0);
+  if (allForecasts.length === 0) return [];
+
+  const length = allForecasts[0].length;
+  const aggregated: ForecastPoint[] = [];
+
+  for (let i = 0; i < length; i++) {
+    let historical: number | null = null;
+    let forecast: number | null = null;
+    let confidenceLow: number | null = null;
+    let confidenceHigh: number | null = null;
+
+    for (const fc of allForecasts) {
+      const pt = fc[i];
+      if (pt.historical !== null) historical = (historical ?? 0) + pt.historical;
+      if (pt.forecast !== null) forecast = (forecast ?? 0) + pt.forecast;
+      if (pt.confidenceLow !== null) confidenceLow = (confidenceLow ?? 0) + pt.confidenceLow;
+      if (pt.confidenceHigh !== null) confidenceHigh = (confidenceHigh ?? 0) + pt.confidenceHigh;
+    }
+
+    aggregated.push({
+      date: allForecasts[0][i].date,
+      historical,
+      forecast,
+      confidenceLow,
+      confidenceHigh,
+    });
+  }
+
+  return aggregated;
+}

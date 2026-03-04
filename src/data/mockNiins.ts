@@ -4,102 +4,102 @@ export const NIIN_CATALOG: NiinRecord[] = [
   {
     id: 'niin-1', niin: '001234567', nomenclature: 'BEARING, ROLLER, NEEDLE',
     platforms: ['F-35A', 'F-35B'], commodityGroup: 'Bearings', supplier: 'Timken Co.',
-    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 180, unitCost: 2450.0,
+    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 180, unitCost: 2450.0, demandProgram: 'FHP',
   },
   {
     id: 'niin-2', niin: '009876543', nomenclature: 'PUMP, HYDRAULIC, VARIABLE',
     platforms: ['F-16C', 'F-16D'], commodityGroup: 'Hydraulics', supplier: 'Parker Hannifin',
-    echelon: 'Intermediate', criticalityFlag: true, singleSource: false, leadTimeDays: 120, unitCost: 18750.0,
+    echelon: 'Intermediate', criticalityFlag: true, singleSource: false, leadTimeDays: 120, unitCost: 18750.0, demandProgram: 'WSS',
   },
   {
     id: 'niin-3', niin: '005551234', nomenclature: 'FILTER ELEMENT, FLUID',
     platforms: ['C-130J', 'C-17A'], commodityGroup: 'Filters', supplier: 'Pall Corporation',
-    echelon: 'Organizational', criticalityFlag: false, singleSource: false, leadTimeDays: 45, unitCost: 320.0,
+    echelon: 'Organizational', criticalityFlag: false, singleSource: false, leadTimeDays: 45, unitCost: 320.0, demandProgram: 'FHP',
   },
   {
     id: 'niin-4', niin: '003217654', nomenclature: 'ACTUATOR, LINEAR, ELECTRO',
     platforms: ['AH-64E'], commodityGroup: 'Flight Controls', supplier: 'Moog Inc.',
-    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 240, unitCost: 42100.0,
+    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 240, unitCost: 42100.0, demandProgram: 'WSS',
   },
   {
     id: 'niin-5', niin: '007778899', nomenclature: 'SEAL, O-RING, SYNTHETIC',
     platforms: ['F-35A', 'F-16C', 'C-130J'], commodityGroup: 'Seals & Gaskets', supplier: 'Parker Hannifin',
-    echelon: 'Organizational', criticalityFlag: false, singleSource: false, leadTimeDays: 30, unitCost: 12.5,
+    echelon: 'Organizational', criticalityFlag: false, singleSource: false, leadTimeDays: 30, unitCost: 12.5, demandProgram: 'FHP',
   },
   {
     id: 'niin-6', niin: '004443210', nomenclature: 'MODULE, ELECTRONIC CTRL',
     platforms: ['F-35A', 'F-35B', 'F-35C'], commodityGroup: 'Avionics', supplier: 'Northrop Grumman',
-    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 365, unitCost: 87500.0,
+    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 365, unitCost: 87500.0, demandProgram: 'WSS',
   },
   {
     id: 'niin-7', niin: '012459832', nomenclature: 'TURBINE BLADE, HIGH PRESSURE',
     platforms: ['F-15E', 'F-15EX'], commodityGroup: 'Engine Components', supplier: 'GE Aerospace',
-    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 300, unitCost: 34200.0,
+    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 300, unitCost: 34200.0, demandProgram: 'FHP',
   },
   {
     id: 'niin-8', niin: '008321076', nomenclature: 'GENERATOR, AC, 400HZ',
     platforms: ['C-17A', 'C-5M'], commodityGroup: 'Electrical Power', supplier: 'Honeywell',
-    echelon: 'Depot', criticalityFlag: true, singleSource: false, leadTimeDays: 210, unitCost: 125000.0,
+    echelon: 'Depot', criticalityFlag: true, singleSource: false, leadTimeDays: 210, unitCost: 125000.0, demandProgram: 'WSS',
   },
   {
     id: 'niin-9', niin: '006745123', nomenclature: 'BRAKE ASSEMBLY, WHEEL',
     platforms: ['F-16C', 'F-16D', 'F-15E'], commodityGroup: 'Landing Gear', supplier: 'Safran Landing',
-    echelon: 'Intermediate', criticalityFlag: false, singleSource: false, leadTimeDays: 90, unitCost: 8400.0,
+    echelon: 'Intermediate', criticalityFlag: false, singleSource: false, leadTimeDays: 90, unitCost: 8400.0, demandProgram: 'FHP',
   },
   {
     id: 'niin-10', niin: '011234098', nomenclature: 'RADAR TRANSMITTER, PULSE',
     platforms: ['F-22A'], commodityGroup: 'Avionics', supplier: 'Raytheon',
-    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 420, unitCost: 215000.0,
+    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 420, unitCost: 215000.0, demandProgram: 'WSS',
   },
   {
     id: 'niin-11', niin: '002876541', nomenclature: 'HOSE ASSEMBLY, FUEL',
     platforms: ['AH-64E', 'UH-60M', 'CH-47F'], commodityGroup: 'Fuel Systems', supplier: 'Eaton Aerospace',
-    echelon: 'Organizational', criticalityFlag: false, singleSource: false, leadTimeDays: 60, unitCost: 1850.0,
+    echelon: 'Organizational', criticalityFlag: false, singleSource: false, leadTimeDays: 60, unitCost: 1850.0, demandProgram: 'FHP',
   },
   {
     id: 'niin-12', niin: '009012345', nomenclature: 'CANOPY, TRANSPARENCY, FORWARD',
     platforms: ['F-16C', 'F-16D'], commodityGroup: 'Airframe', supplier: 'GKN Aerospace',
-    echelon: 'Depot', criticalityFlag: false, singleSource: true, leadTimeDays: 270, unitCost: 67000.0,
+    echelon: 'Depot', criticalityFlag: false, singleSource: true, leadTimeDays: 270, unitCost: 67000.0, demandProgram: 'WSS',
   },
   {
     id: 'niin-13', niin: '005678901', nomenclature: 'TIRE, PNEUMATIC, AIRCRAFT',
     platforms: ['C-130J', 'C-17A', 'C-5M'], commodityGroup: 'Landing Gear', supplier: 'Michelin Aircraft',
-    echelon: 'Organizational', criticalityFlag: false, singleSource: false, leadTimeDays: 21, unitCost: 4200.0,
+    echelon: 'Organizational', criticalityFlag: false, singleSource: false, leadTimeDays: 21, unitCost: 4200.0, demandProgram: 'FHP',
   },
   {
     id: 'niin-14', niin: '013456789', nomenclature: 'DISPLAY UNIT, HEAD-UP',
     platforms: ['F-35A', 'F-35B', 'F-35C'], commodityGroup: 'Avionics', supplier: 'BAE Systems',
-    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 330, unitCost: 178000.0,
+    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 330, unitCost: 178000.0, demandProgram: 'WSS',
   },
   {
     id: 'niin-15', niin: '007890123', nomenclature: 'VALVE, SOLENOID, FUEL',
     platforms: ['F-15E', 'F-15EX', 'F-16C'], commodityGroup: 'Fuel Systems', supplier: 'Parker Hannifin',
-    echelon: 'Intermediate', criticalityFlag: false, singleSource: false, leadTimeDays: 75, unitCost: 3600.0,
+    echelon: 'Intermediate', criticalityFlag: false, singleSource: false, leadTimeDays: 75, unitCost: 3600.0, demandProgram: 'FHP',
   },
   {
     id: 'niin-16', niin: '010987654', nomenclature: 'ROTOR BLADE, MAIN',
     platforms: ['UH-60M', 'UH-60L'], commodityGroup: 'Rotor Systems', supplier: 'Sikorsky',
-    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 360, unitCost: 245000.0,
+    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 360, unitCost: 245000.0, demandProgram: 'FHP',
   },
   {
     id: 'niin-17', niin: '006543210', nomenclature: 'STARTER, ENGINE, PNEUMATIC',
     platforms: ['F-15E', 'F-15EX'], commodityGroup: 'Engine Components', supplier: 'Honeywell',
-    echelon: 'Intermediate', criticalityFlag: true, singleSource: false, leadTimeDays: 150, unitCost: 52000.0,
+    echelon: 'Intermediate', criticalityFlag: true, singleSource: false, leadTimeDays: 150, unitCost: 52000.0, demandProgram: 'WSS',
   },
   {
     id: 'niin-18', niin: '008765432', nomenclature: 'CIRCUIT CARD ASSY, PROCESSOR',
     platforms: ['F-22A', 'F-35A'], commodityGroup: 'Avionics', supplier: 'L3Harris',
-    echelon: 'Depot', criticalityFlag: true, singleSource: false, leadTimeDays: 200, unitCost: 95000.0,
+    echelon: 'Depot', criticalityFlag: true, singleSource: false, leadTimeDays: 200, unitCost: 95000.0, demandProgram: 'WSS',
   },
   {
     id: 'niin-19', niin: '004567890', nomenclature: 'HEAT EXCHANGER, OIL',
     platforms: ['C-130J', 'KC-135R'], commodityGroup: 'Environmental', supplier: 'Collins Aerospace',
-    echelon: 'Intermediate', criticalityFlag: false, singleSource: false, leadTimeDays: 110, unitCost: 14500.0,
+    echelon: 'Intermediate', criticalityFlag: false, singleSource: false, leadTimeDays: 110, unitCost: 14500.0, demandProgram: 'FHP',
   },
   {
     id: 'niin-20', niin: '011876543', nomenclature: 'MISSILE LAUNCHER RAIL',
     platforms: ['F-16C', 'F-15E', 'F-35A'], commodityGroup: 'Weapons Systems', supplier: 'Raytheon',
-    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 280, unitCost: 156000.0,
+    echelon: 'Depot', criticalityFlag: true, singleSource: true, leadTimeDays: 280, unitCost: 156000.0, demandProgram: 'WSS',
   },
 ];
 
@@ -166,6 +166,7 @@ export interface NiinFilters {
   commodityGroup: string | null;
   supplier: string | null;
   echelon: string | null;
+  demandProgram: string | null;
 }
 
 export function filterNiinCatalog(filters: NiinFilters): NiinRecord[] {
@@ -174,6 +175,7 @@ export function filterNiinCatalog(filters: NiinFilters): NiinRecord[] {
     if (filters.commodityGroup && n.commodityGroup !== filters.commodityGroup) return false;
     if (filters.supplier && n.supplier !== filters.supplier) return false;
     if (filters.echelon && n.echelon !== filters.echelon) return false;
+    if (filters.demandProgram && n.demandProgram !== filters.demandProgram) return false;
     return true;
   });
 }

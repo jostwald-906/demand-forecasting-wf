@@ -10,6 +10,7 @@ export interface NiinRecord {
   singleSource: boolean;
   leadTimeDays: number;
   unitCost: number;
+  demandProgram: 'FHP' | 'WSS';
 }
 
 export interface OperationalData {

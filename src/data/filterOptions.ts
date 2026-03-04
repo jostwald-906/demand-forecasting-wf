@@ -8,4 +8,5 @@ export const platformOptions = unique(NIIN_CATALOG.flatMap((n) => n.platforms));
 export const commodityGroupOptions = unique(NIIN_CATALOG.map((n) => n.commodityGroup));
 export const supplierOptions = unique(NIIN_CATALOG.map((n) => n.supplier));
 export const echelonOptions = unique(NIIN_CATALOG.map((n) => n.echelon));
+export const demandProgramOptions = ['FHP', 'WSS'] as const;
 export const horizonOptions = ['2y', '5y', '10y', '20y'] as const;

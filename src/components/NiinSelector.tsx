@@ -21,7 +21,8 @@ export default function NiinSelector() {
     commodityGroup: filters.commodityGroup,
     supplier: filters.supplier,
     echelon: filters.echelon,
-  }), [filters.platform, filters.commodityGroup, filters.supplier, filters.echelon]);
+    demandProgram: filters.demandProgram,
+  }), [filters.platform, filters.commodityGroup, filters.supplier, filters.echelon, filters.demandProgram]);
 
   const filteredCatalog = useMemo(() => filterNiinCatalog(activeFilters), [activeFilters]);
 

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useAppState, useAppDispatch, useSelectedNiinData } from '@/context/AppContext';
 import { Search } from 'lucide-react';
+import AggregatedView from './AggregatedView';
 import NiinMetadataCard from './NiinMetadataCard';
 import OperationalTiles from './OperationalTiles';
 import RiskTiles from './RiskTiles';
@@ -18,7 +19,7 @@ import SupplierRiskCard from './SupplierRiskCard';
 import CausalGraph from './CausalGraph';
 
 export default function NiinControlView() {
-  const { selectedNiinId, isLoading, displayMode, simulatedError } = useAppState();
+  const { selectedNiinId, isLoading, displayMode, simulatedError, filters } = useAppState();
   const dispatch = useAppDispatch();
   const data = useSelectedNiinData();
 
@@ -35,12 +36,22 @@ export default function NiinControlView() {
     dispatch({ type: 'SIMULATE_ERROR', error: null });
   };
 
+  const hasActiveFilters =
+    filters.platform !== null ||
+    filters.commodityGroup !== null ||
+    filters.supplier !== null ||
+    filters.echelon !== null ||
+    filters.demandProgram !== null;
+
   if (!selectedNiinId) {
+    if (hasActiveFilters) {
+      return <AggregatedView />;
+    }
     return (
       <div className="flex flex-col items-center justify-center py-24 text-gray-400 dark:text-gray-500">
         <Search className="w-12 h-12 mb-4" />
         <p className="text-lg font-medium text-gray-500 dark:text-gray-400">Select a NIIN to begin analysis</p>
-        <p className="text-sm mt-1">Use the search bar above to find a National Item Identification Number</p>
+        <p className="text-sm mt-1">Use the search bar above or select a filter to view aggregated demand</p>
       </div>
     );
   }

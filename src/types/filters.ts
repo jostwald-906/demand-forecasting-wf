@@ -7,6 +7,7 @@ export interface FilterState {
   commodityGroup: string | null;
   supplier: string | null;
   echelon: string | null;
+  demandProgram: string | null;
   horizon: Horizon;
 }
 
@@ -15,5 +16,6 @@ export const DEFAULT_FILTERS: FilterState = {
   commodityGroup: null,
   supplier: null,
   echelon: null,
+  demandProgram: null,
   horizon: '5y',
 };
